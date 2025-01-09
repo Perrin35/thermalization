@@ -10,7 +10,7 @@ Contains all data used in the project, organized into subdirectories:
 - **`circuits/`**:
   - Stores quantum circuit files used for simulations.
   - Includes 100 disorder realization folders, each containing:
-    - `random_interaction_i.npy` (1 ≤ i ≤ 100): NumPy file storing the interaction matrix \( J \), where \( J[i,j] \) represents the coupling strength between qubits \( i \) and \( j \), and \( J[j,i] \) is its conjugate.
+    - `random_interaction_<i>.npy` (1 ≤ i ≤ 100): NumPy file storing the interaction matrix \( J \), where \( J[k,l] \) represents the coupling strength between qubits \( k \) and \( l \), and \( J[l,k] \) is its conjugate.
     - Subfolders for different simulation times:
       - **`T=2.5/`**, **`T=5/`**, **`T=10/`**:
         - **Recompiled Circuits**: Two circuits `recompiled_circuit_<initial_state>_disorder_<i>_T=<T>.qasm` in QASM format per disorder realization for different initial states:
@@ -21,24 +21,24 @@ Contains all data used in the project, organized into subdirectories:
 
 - **`quantum data/`**:
   - Raw data from six IBMQ sessions in subfolders:
-    - **`session thermalization <i>`** (1 ≤ i ≤ 6): Simulations at \( T = 2.5, 5, 10 \) for both initial states.
+    - **`session thermalization <i>`** (1 ≤ i ≤ 6): Simulations at \( T = 2.5, 5, 10 \) for both initial states. The 3 first sessions correspond to the ground state with session 1 for T=2.5, session 2 for T=5 and session 3 for T=10. The 3 last sessions correspond to the highest energy state with the same ordering for the time.
       - **`measurement_backend=ibm_hanoi.json`**: `measurement_backend=ibm_hanoi.json`: A 16x16 matrix representing the calibration of the measurement process for that session. The 
-2^4=16 rows correspond to different initial bitstring states that are prepared and directly measured. In a perfect measurement scheme, this matrix would be the identity matrix. However, due to noise, other states may become populated. This file can be used to mitigate the effects of noisy measurements by applying the Iterative Bayesian Unfolding (IBU, see [3]) method, as demonstrated in the notebook `compute populations.ipynb`
+2^4=16 rows correspond to different initial bitstring states that are prepared and directly measured. In a perfect measurement scheme, this matrix would be the identity matrix. However, due to noise, other states may become populated. This file can be used to mitigate the effects of noisy measurements by applying the Iterative Bayesian Unfolding (IBU, see [2]) method, as demonstrated in the notebook `compute populations.ipynb`
       - **Result Files**:
         - `result_disorder_realization_<i>_backend=ibm_hanoi.json`: Results from circuits in the `RC/` folder. Each file contains a list of 100 dictionaries. Each dictionary represents the quantum run of a cRC circuit version, with keys corresponding to bitstring configurations (in base 10) and values representing their measured probabilities.
         - `result_ZNE3_disorder_realization_<i>_backend=ibm_hanoi.json`: Results from circuits in the `ZNE3/` folder, with the same structure as above.
 
 - **`populations/`**:
   - Stores population data derived from raw quantum data using the `compute populations.ipynb` notebook. Includes:
-    - `population_exact_dynamics_<initial_state>.npy`: The theoretical  population expected from the exact hamiltonian dynamics. A NumPy array \( 100 \times 1500 \times 16 \). Axes correspond to:
+    - `population_exact_dynamics_<initial_state>.npy`: The theoretical  population expected from the exact hamiltonian dynamics. A NumPy array \( 100 x 1500 x 16 \). Axes correspond to:
       1. Disorder realizations (100).
       2. Simulation times (1500, sampled at intervals of 0.01 from 0 to 15).
       3. Bitstring configurations (16).
-    - `population_noiseless_<initial_state>.npy`: the population expected from the recompiled circuit but on a perfect quantum computer. It is very close to the 	exact dynamics and therefore not shown in the paper. A NumPy array \( 3 \times 16 \times 100 \). Axes correspond to:
+    - `population_noiseless_<initial_state>.npy`: the population expected from the recompiled circuit but on a perfect quantum computer. It is very close to the 	exact dynamics and therefore not shown in the paper. A NumPy array \( 3 x 16 x 100 \). Axes correspond to:
       1. Simulation times (3: \( T = 2.5, 5, 10 \)).
       2. Bitstring configurations (16).
       3. Disorder realizations (100).
-    - `population_RC_<initial_state>.npy`: population computed from the files `result_disorder_realization_<i>_backend=ibm_hanoi.json` using IBU in conjunction with 	the "measurement_backend=ibm_hanoi.json" to mitigate the effects of noisy measurements. A NumPy array \( 3 \times 16 \times 100 \times 100 \). Axes correspond to:
+    - `population_RC_<initial_state>.npy`: Population data calculated from the files `result_disorder_realization_<i>_backend=ibm_hanoi.json` using IBU method, combined with the `measurement_backend=ibm_hanoi.json` calibration file to correct for the effects of noisy measurements. A NumPy array \( 3 x 16 x 100 x 100 \). Axes correspond to:
       1. Simulation sessions (3: \( T = 2.5, 5, 10 \)).
       2. Bitstring configurations (16).
       3. Disorder realizations (100).
