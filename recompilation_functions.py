@@ -6,6 +6,27 @@ from qiskit.extensions import UnitaryGate
 import quimb as qu
 import quimb.tensor as qtn
 
+
+def pauli_x(qubit,system_size):
+    """
+    Parameters: 
+    integer: the qubit on which is applied the Pauli Matrix X (from 0 to system_size-1)
+    integer: number of qubits of the whole system 
+    
+    Return: numpy array: the corresponding matrix operator
+    """
+    if qubit==0:
+        S=np.array([[0,1],[1,0]])
+    else:
+        S=np.array([[1,0],[0,1]])
+    for j in range(1,system_size):
+        if j==qubit:
+            S=np.kron(np.array([[0,1],[1,0]]),S)
+        else:
+            S=np.kron(np.array([[1,0],[0,1]]),S)
+    return S
+
+
 def pauli_y(qubit,system_size):
     """
     Parameters: 
@@ -45,6 +66,24 @@ def pauli_z(qubit,system_size):
             S=np.kron(np.array([[1,0],[0,1]]),S)
     return S
 
+def pauli_gen(direction,qubit,system_size):
+    """
+    Parameters: 
+    string: 'x', 'y' or 'z' directions of the pauli matrices
+    integer: the qubit on which is applied the Pauli Matrix Z (from 0 to system_size-1)
+    integer: number of qubits of the whole system 
+    
+    Return: numpy array: the corresponding matrix operator
+    """
+    if direction=='x':
+        return pauli_x(qubit,system_size)
+    elif direction=='y':
+        return pauli_y(qubit,system_size)
+    elif direction=='z':
+        return pauli_z(qubit,system_size)
+    else:
+        raise Exception("Incorrect direction! Enter 'x', 'y' or 'z' ")
+        
 def pauli_p(qubit,system_size):
     """
     Parameters: 
@@ -101,6 +140,26 @@ def random_gaussian_interactions(J,omegas):
             hamiltonian-=J[i,j]*np.linalg.multi_dot([pauli_p(i,nb_qubits)]+z_chain+[pauli_m(j,nb_qubits)])
             hamiltonian-=J[j,i]*np.linalg.multi_dot([pauli_p(j,nb_qubits)]+z_chain+[pauli_m(i,nb_qubits)])
         hamiltonian+=omegas[i]/2*pauli_y(i,nb_qubits)
+    return hamiltonian
+
+
+def random_gaussian_quantum_dots(J,omegas):
+    """
+    Parameters: 
+     numpy array: 4-tensor of coupling strength
+     list of float: on-site energies
+    
+    Return: numpy array: the hamiltonian operator
+    """
+    nb_qubits=len(J)
+    hamiltonian=np.zeros([2**nb_qubits,2**nb_qubits],dtype=np.complex128)
+    for i in range(nb_qubits):
+        for j in range(nb_qubits):
+            #z_chain=[pauli_z(k,nb_qubits) for k in range(i+1,j)]
+            for a,alpha in enumerate(['x','y','z']):
+                for b,beta in enumerate(['x','y','z']):
+                    hamiltonian+=J[i,j,a,b]*(pauli_gen(alpha,i,nb_qubits)@pauli_gen(beta,j,nb_qubits)+pauli_gen(beta,j,nb_qubits)@pauli_gen(alpha,i,nb_qubits))
+        hamiltonian+=omegas[i]*pauli_z(i,nb_qubits)
     return hamiltonian
 
 
