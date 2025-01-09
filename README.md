@@ -1,0 +1,77 @@
+# Repository Overview
+
+This repository is organized as follows:
+
+## Directory Structure
+
+### `data/`
+Contains all data used in the project, organized into subdirectories:
+
+- **`circuits/`**:
+  - Stores quantum circuit files used for simulations.
+  - Includes 100 disorder realization folders, each containing:
+    - `random_interaction_i.npy` (1 ≤ i ≤ 100): NumPy file storing the interaction matrix \( J \), where \( J[i,j] \) represents the coupling strength between qubits \( i \) and \( j \), and \( J[j,i] \) is its conjugate.
+    - Subfolders for different simulation times:
+      - **`T=2.5/`**, **`T=5/`**, **`T=10/`**:
+        - **Recompiled Circuits**: Two `.qasm` files per disorder realization for different initial states:
+          - Ground state.
+          - Highest energy state.
+        - **`RC/`**: Contains 100 crosstalk randomized compiling (cRC) versions of the recompiled circuits.
+        - **`ZNE3/`**: Contains ZNE circuits with tripled CNOT gates and 100 cRC versions of each.
+
+- **`quantum data/`**:
+  - Raw data from six IBMQ sessions in subfolders:
+    - **`session thermalization <i>`** (1 ≤ i ≤ 6): Simulations at \( T = 2.5, 5, 10 \) for both initial states.
+      - **`measurement_backend=ibm_hanoi.json`**: A \( 16 \times 16 \) calibration matrix. Rows correspond to initial bitstring states, used to mitigate noisy measurements via Iterative Bayesian Unfolding (IBU).
+      - **Result Files**:
+        - `result_disorder_realization_<i>_backend=ibm_hanoi.json`: Results from circuits in the `RC/` folder. Each file contains a list of 100 dictionaries. Each dictionary represents the quantum run of a cRC circuit version, with keys corresponding to bitstring configurations (in base 10) and values representing their measured probabilities.
+        - `result_ZNE3_disorder_realization_<i>_backend=ibm_hanoi.json`: Results from circuits in the `ZNE3/` folder, with the same structure as above.
+
+- **`populations/`**:
+  - Stores population data derived from raw quantum data using the `compute populations.ipynb` notebook. Includes:
+    - `population_exact_dynamics_<initial_state>.npy`: A NumPy array \( 100 \times 1500 \times 16 \). Axes correspond to:
+      1. Disorder realizations (100).
+      2. Simulation times (1500, sampled at intervals of 0.01 from 0 to 15).
+      3. Bitstring configurations (16).
+    - `population_noiseless_<initial_state>.npy`: A NumPy array \( 3 \times 16 \times 100 \). Axes correspond to:
+      1. Simulation times (3: \( T = 2.5, 5, 10 \)).
+      2. Bitstring configurations (16).
+      3. Disorder realizations (100).
+    - `population_RC_<initial_state>.npy`: A NumPy array \( 3 \times 16 \times 100 \times 100 \). Axes correspond to:
+      1. Simulation sessions (3: \( T = 2.5, 5, 10 \)).
+      2. Bitstring configurations (16).
+      3. Disorder realizations (100).
+      4. Randomized circuit versions (100).
+    - `population_ZNE3_<initial_state>.npy`: Same structure as `population_RC_<initial_state>.npy`, but derived from ZNE circuits.
+
+### `figure/`
+Contains Figures 2 and 3 of the article, generated using `plot article.ipynb`.
+
+## Python Files
+Three Python scripts containing essential functions:
+
+- **`recompilation_functions.py`**: For recompiling circuits.
+- **`randomized_compiling_functions.py`**: Implements Crosstalk Randomized Compiling (cRC) as described in [1].
+- **`ZNE.py`**: Implements Zero Noise Extrapolation (ZNE) by tripling the CNOT gates in the circuits.
+
+## Jupyter Notebooks
+Three notebooks for data generation, processing, and analysis:
+
+- **`circuits creation.ipynb`**: Generates quantum circuits and saves them in `data/circuits/`.
+- **`compute populations.ipynb`**: Processes raw quantum data to compute populations and saves the results in `data/populations/`.
+- **`plot article.ipynb`**: Analyzes population data and generates Figures 2 and 3 for the associated article.
+
+## Usage Instructions
+
+1. **Generate Circuits**:
+   - Run the `circuits creation.ipynb` notebook to generate quantum circuits. (Warning if you don't change the filename you will erase circuits already stored)
+
+2. **Compute Populations**:
+   - Process raw quantum data using `compute populations.ipynb`.
+
+3. **Analyze Results**:
+   - Use `plot article.ipynb` to generate Figures 2 and 3 for publication.
+
+## References
+1. Crosstalk Randomized Compiling (cRC): H. Perrin, T. Scoquart, A. Shnirman, J. Schmalian, and K. Snizhko, Mitigating crosstalk errors by randomized compiling: Simulation of the BCS model on a superconducting quantum computer, Phys. Rev. Res. 6, 013142 (2024).
+2. Iterative Bayesian Unfolding (IBU): B. Nachman, M. Urbanek, W. A. de Jong, and C. W. Bauer, Unfolding quantum computer readout noise, npj Quantum Information 6 (2020).
