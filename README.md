@@ -16,7 +16,7 @@ Contains all data used in the project, organized into subdirectories:
         - **Recompiled Circuits**: Two circuits `recompiled_circuit_<initial_state>_disorder_<i>_T=<T>.qasm` in QASM format per disorder realization for different initial states:
           - Ground state.
           - Highest energy state.
-        - **`RC/`**: Contains 100 crosstalk randomized compiling (cRC) versions of the recompiled circuits.
+        - **`RC/`**: Contains 100 crosstalk randomized compiling (cRC, see [1]) versions of the recompiled circuits.
         - **`ZNE3/`**: Contains ZNE circuits with tripled CNOT gates and 100 cRC versions of each.
 
 - **`quantum data/`**:
@@ -61,6 +61,19 @@ Three notebooks for data generation, processing, and analysis:
 - **`circuits creation.ipynb`**: Generates quantum circuits and saves them in `data/circuits/`.
 - **`compute populations.ipynb`**: Processes raw quantum data to compute populations and saves the results in `data/populations/`.
 - **`plot article.ipynb`**: Analyzes population data and generates Figures 2 and 3 for the associated article.
+
+
+## Dependencies
+The project has been run using the following packages (with specific versions):
+
+- Python 3.9.7
+- qiskit 0.22.4
+- quimb 1.5.1
+- NumPy 1.24.0
+- matplotlib 3.8.0
+- scipy 1.11.4
+- json 2.0.9
+  
 
 ## Usage Instructions
 
