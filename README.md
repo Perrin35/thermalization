@@ -24,9 +24,8 @@ Contains all data used in the project, organized into subdirectories:
     - **`session thermalization <i>`** (1 ≤ i ≤ 6): Simulations at \( T = 2.5, 5, 10 \) for both initial states. The 3 first sessions correspond to the ground state with session 1 for T=2.5, session 2 for T=5 and session 3 for T=10. The 3 last sessions correspond to the highest energy state with the same ordering for the time.
       - **`measurement_backend=ibm_hanoi.json`**: `measurement_backend=ibm_hanoi.json`: A 16x16 matrix representing the calibration of the measurement process for that session. The 
 2^4=16 rows correspond to different initial bitstring states that are prepared and directly measured. In a perfect measurement scheme, this matrix would be the identity matrix. However, due to noise, other states may become populated. This file can be used to mitigate the effects of noisy measurements by applying the Iterative Bayesian Unfolding (IBU, see [2]) method, as demonstrated in the notebook `compute populations.ipynb`
-      - **Result Files**:
-        - `result_disorder_realization_<i>_backend=ibm_hanoi.json`: Results from circuits in the `RC/` folder. Each file contains a list of 100 dictionaries. Each dictionary represents the quantum run of a cRC circuit version, with keys corresponding to bitstring configurations (in base 10) and values representing their measured probabilities.
-        - `result_ZNE3_disorder_realization_<i>_backend=ibm_hanoi.json`: Results from circuits in the `ZNE3/` folder, with the same structure as above.
+      - **`result_disorder_realization_<i>_backend=ibm_hanoi.json`**: Results from circuits in the `RC/` folder. Each file contains a list of 100 dictionaries. Each dictionary represents the quantum run of a cRC circuit version, with keys corresponding to bitstring configurations (in base 10) and values representing their measured probabilities.
+      - **`result_ZNE3_disorder_realization_<i>_backend=ibm_hanoi.json`**: Results from circuits in the `ZNE3/` folder, with the same structure as above.
 
 - **`populations/`**:
   - Stores population data derived from raw quantum data using the `compute populations.ipynb` notebook. Includes:
