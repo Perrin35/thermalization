@@ -11,11 +11,8 @@ Contains all data used in the project, organized into subdirectories:
   - Stores quantum circuit files used for simulations.
   - Includes 100 disorder realization folders **`disorder_realization_<i>/`**, each containing:
     - `random_interaction_<i>.npy` (1 ≤ i ≤ 100): NumPy file storing the interaction matrix \( J \), where \( J[k,l] \) represents the coupling strength between qubits \( k \) and \( l \), and \( J[l,k] \) is its conjugate.
-    - Subfolders for different simulation times:
-      - **`T=2.5/`**, **`T=5/`**, **`T=10/`**:
-        - **Recompiled Circuits**: Two circuits `recompiled_circuit_<initial_state>_disorder_<i>_T=<T>.qasm` in QASM format per disorder realization for different initial states:
-          - Ground state.
-          - Highest energy state.
+    - Subfolders for different simulation times: **`T=2.5/`**, **`T=5/`**, **`T=10/`**:
+        - **Recompiled Circuits**: Two circuits `recompiled_circuit_<initial_state>_disorder_<i>_T=<T>.qasm` in QASM format per disorder realization for the two different initial states: ground state and highest energy state.
         - **`RC/`**: Contains 100 crosstalk randomized compiling (cRC, see [1]) versions of the recompiled circuits.
         - **`ZNE3/`**: Contains ZNE circuits with tripled CNOT gates and 100 cRC versions of each.
 
