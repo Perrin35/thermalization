@@ -9,7 +9,7 @@ Contains all data used in the project, organized into subdirectories:
 
 - **`circuits/`**:
   - Stores quantum circuit files used for simulations.
-  - Includes 100 disorder realization folders, each containing:
+  - Includes 100 disorder realization folders **`disorder_realization_<i>/`**, each containing:
     - `random_interaction_<i>.npy` (1 ≤ i ≤ 100): NumPy file storing the interaction matrix \( J \), where \( J[k,l] \) represents the coupling strength between qubits \( k \) and \( l \), and \( J[l,k] \) is its conjugate.
     - Subfolders for different simulation times:
       - **`T=2.5/`**, **`T=5/`**, **`T=10/`**:
