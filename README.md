@@ -13,7 +13,7 @@ Contains all data used in the project, organized into subdirectories:
     - `random_interaction_i.npy` (1 ≤ i ≤ 100): NumPy file storing the interaction matrix \( J \), where \( J[i,j] \) represents the coupling strength between qubits \( i \) and \( j \), and \( J[j,i] \) is its conjugate.
     - Subfolders for different simulation times:
       - **`T=2.5/`**, **`T=5/`**, **`T=10/`**:
-        - **Recompiled Circuits**: Two `.qasm` files per disorder realization for different initial states:
+        - **Recompiled Circuits**: Two circuits `recompiled_circuit_<initial_state>_disorder_<i>_T=<T>.qasm` in QASM format per disorder realization for different initial states:
           - Ground state.
           - Highest energy state.
         - **`RC/`**: Contains 100 crosstalk randomized compiling (cRC) versions of the recompiled circuits.
