@@ -56,7 +56,7 @@ Three Python scripts containing essential functions:
 - **`ZNE.py`**: Implements Zero Noise Extrapolation (ZNE) by tripling the CNOT gates in the circuits.
 
 ## Jupyter Notebooks
-Three notebooks for data generation, processing, and analysis:
+Three notebooks for circuit generation, data processing, and analysis:
 
 - **`circuits creation.ipynb`**: Generates quantum circuits and saves them in `data/circuits/`.
 - **`compute populations.ipynb`**: Processes raw quantum data to compute populations and saves the results in `data/populations/`.
