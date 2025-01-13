@@ -83,6 +83,9 @@ The project has been run using the following packages (with specific versions):
    - Use `plot article.ipynb` to generate Figures 2 and 3 for publication.
 
 ## References
-1.Dynamic thermalization on noisy quantum hardware, H Perrin, T Scoquart, AI Pavlov, NV Gnezdilov, arXiv preprint arXiv:2407.04770 (accepted in Communication Physics)
-2. Crosstalk Randomized Compiling (cRC): H. Perrin, T. Scoquart, A. Shnirman, J. Schmalian, and K. Snizhko, Mitigating crosstalk errors by randomized compiling: Simulation of the BCS model on a superconducting quantum computer, Phys. Rev. Res. 6, 013142 (2024).
+
+1. Dynamic thermalization on noisy quantum hardware, H Perrin, T Scoquart, AI Pavlov, NV Gnezdilov, arXiv preprint arXiv:2407.04770 (accepted in Communication Physics).
+
+2.  Crosstalk Randomized Compiling (cRC): H. Perrin, T. Scoquart, A. Shnirman, J. Schmalian, and K. Snizhko, Mitigating crosstalk errors by randomized compiling: Simulation of the BCS model on a superconducting quantum computer, Phys. Rev. Res. 6, 013142 (2024).
+
 3. Iterative Bayesian Unfolding (IBU): B. Nachman, M. Urbanek, W. A. de Jong, and C. W. Bauer, Unfolding quantum computer readout noise, npj Quantum Information 6 (2020).
