@@ -1,6 +1,6 @@
 # Repository Overview
 
-This repository contains the notebook and data used in [1]. It is organized as follows:
+This repository includes the notebook and data used in [1] and can be cited with the DOI: 10.5281/zenodo.14639657. It is organized as follows:
 
 ## Directory Structure
 
