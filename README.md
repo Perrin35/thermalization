@@ -1,6 +1,6 @@
 # Repository Overview
 
-This repository includes the notebook and data used in [1] and can be cited with the DOI: 10.5281/zenodo.14639657. It is organized as follows:
+This repository includes the notebook and data used in [[1]](#references) and can be cited with the DOI: [10.5281/zenodo.14639657](https://doi.org/10.5281/zenodo.14639656). It is organized as follows:
 
 ## Directory Structure
 
@@ -13,14 +13,14 @@ Contains all data used in the project, organized into subdirectories:
     - `random_interaction_<i>.npy` (1 ≤ i ≤ 100): NumPy file storing the interaction matrix \( J \), where \( J[k,l] \) represents the coupling strength between qubits \( k \) and \( l \), and \( J[l,k] \) is its conjugate.
     - Subfolders for different simulation times: **`T=2.5/`**, **`T=5/`**, **`T=10/`**:
         - **Recompiled Circuits**: Two circuits `recompiled_circuit_<initial_state>_disorder_<i>_T=<T>.qasm` in QASM format per disorder realization for the two different initial states: ground state and highest energy state.
-        - **`RC/`**: Contains 100 crosstalk randomized compiling (cRC, see [1]) versions of the recompiled circuits.
+        - **`RC/`**: Contains 100 crosstalk randomized compiling (cRC, see [[2]](#references)) versions of the recompiled circuits.
         - **`ZNE3/`**: Contains ZNE circuits with tripled CNOT gates and 100 cRC versions of each.
 
 - **`quantum data/`**:
   - Raw data from six IBMQ sessions in subfolders:
     - **`session thermalization <i>/`** (1 ≤ i ≤ 6): Simulations at \( T = 2.5, 5, 10 \) for both initial states. The 3 first sessions correspond to the ground state with session 1 for T=2.5, session 2 for T=5 and session 3 for T=10. The 3 last sessions correspond to the highest energy state with the same ordering for the time.
       - **`measurement_backend=ibm_hanoi.json`**: `measurement_backend=ibm_hanoi.json`: A 16x16 matrix representing the calibration of the measurement for that session. The 
-2^4=16 rows correspond to different initial bitstring states that are prepared and directly measured. In a perfect measurement scheme, this matrix would be the identity matrix. However, due to noise, other states may become populated. This file can be used to mitigate the effects of noisy measurements by applying the Iterative Bayesian Unfolding (IBU, see [2]) method, as done in the notebook `compute populations.ipynb`
+2^4=16 rows correspond to different initial bitstring states that are prepared and directly measured. In a perfect measurement scheme, this matrix would be the identity matrix. However, due to noise, other states may become populated. This file can be used to mitigate the effects of noisy measurements by applying the Iterative Bayesian Unfolding (IBU, see [[3]](#references)) method, as done in the notebook `compute populations.ipynb`
       - **`result_disorder_realization_<i>_backend=ibm_hanoi.json`**: Results from circuits in the `RC/` folder. Each file contains a list of 100 dictionaries. Each dictionary represents the quantum run of a cRC circuit version, with keys corresponding to bitstring configurations (in base 10) and values representing their measured probabilities.
       - **`result_ZNE3_disorder_realization_<i>_backend=ibm_hanoi.json`**: Results from circuits in the `ZNE3/` folder, with the same structure as above.
 
@@ -48,7 +48,7 @@ Contains Figures 2 and 3 of the article, generated using `plot article.ipynb`.
 Three Python scripts containing essential functions:
 
 - **`recompilation_functions.py`**: For recompiling circuits.
-- **`randomized_compiling_functions.py`**: Implements Crosstalk Randomized Compiling (cRC) as described in [1].
+- **`randomized_compiling_functions.py`**: Implements Crosstalk Randomized Compiling (cRC) as described in [[2]](#references).
 - **`ZNE.py`**: Implements Zero Noise Extrapolation (ZNE) by tripling the CNOT gates in the circuits.
 
 ## Jupyter Notebooks
@@ -84,8 +84,8 @@ The project has been run using the following packages (with specific versions):
 
 ## References
 
-1. Dynamic thermalization on noisy quantum hardware, H Perrin, T Scoquart, AI Pavlov, NV Gnezdilov, arXiv preprint arXiv:2407.04770 (accepted in Communication Physics).
+1. Dynamic thermalization on noisy quantum hardware, H Perrin, T Scoquart, AI Pavlov, NV Gnezdilov, arXiv preprint [arXiv:2407.04770](https://arxiv.org/abs/2407.04770) (accepted in Communication Physics).
 
-2.  Crosstalk Randomized Compiling (cRC): H. Perrin, T. Scoquart, A. Shnirman, J. Schmalian, and K. Snizhko, Mitigating crosstalk errors by randomized compiling: Simulation of the BCS model on a superconducting quantum computer, Phys. Rev. Res. 6, 013142 (2024).
+2.  Crosstalk Randomized Compiling (cRC): H. Perrin, T. Scoquart, A. Shnirman, J. Schmalian, and K. Snizhko, Mitigating crosstalk errors by randomized compiling: Simulation of the BCS model on a superconducting quantum computer, [Phys. Rev. Res. 6, 013142](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013142) (2024).
 
-3. Iterative Bayesian Unfolding (IBU): B. Nachman, M. Urbanek, W. A. de Jong, and C. W. Bauer, Unfolding quantum computer readout noise, npj Quantum Information 6 (2020).
+3. Iterative Bayesian Unfolding (IBU): B. Nachman, M. Urbanek, W. A. de Jong, and C. W. Bauer, Unfolding quantum computer readout noise, [npj Quantum Information 6](https://www.nature.com/articles/s41534-020-00309-7) (2020).
