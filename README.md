@@ -84,7 +84,7 @@ The project has been run using the following packages (with specific versions):
 
 ## References
 
-1. Dynamic thermalization on noisy quantum hardware, H Perrin, T Scoquart, AI Pavlov, NV Gnezdilov, arXiv preprint [arXiv:2407.04770](https://arxiv.org/abs/2407.04770) (accepted in Communication Physics).
+1. Dynamic thermalization on noisy quantum hardware, H Perrin, T Scoquart, AI Pavlov, NV Gnezdilov, arXiv preprint [arXiv:2407.04770](https://arxiv.org/abs/2407.04770) (accepted in Communications Physics).
 
 2.  Crosstalk Randomized Compiling (cRC): H. Perrin, T. Scoquart, A. Shnirman, J. Schmalian, and K. Snizhko, Mitigating crosstalk errors by randomized compiling: Simulation of the BCS model on a superconducting quantum computer, [Phys. Rev. Res. 6, 013142](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.6.013142) (2024).
 
